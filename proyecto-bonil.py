@@ -1,29 +1,36 @@
 from sympy.core.function import diff
 from sympy.core.sympify import sympify
 
-def formula_iterar(fn):
-    fn = sympify(fn)
-    formula = sympify('x') - (fn/diff(fn))
+def formula_iterar(f):
+    f = sympify(f)
+    formula = sympify('x') - (f/diff(f))
     sympify(formula)
     return formula
 
 
 if __name__ == '__main__':
-    fn = (str(input("Ingrese la función a iterar: ")))
+    funcion = (str(input("Ingrese la función a iterar: ")))
     xi = (float(input("Ingrese el x inicial: ")))
-    prec = float(input("Ingrese el error aproximado: "))
-    max_iter = 20
+    prec = float(input("Ingrese el error deseado: "))
+    tope = 20
     error = 1
     i = 0
-    g = formula_iterar(fn)
-    num_it = xi
-    while i != max_iter and prec < error:
+    g = formula_iterar(funcion)
+
+    while i != tope and prec < error:
         i += 1
         print(f'\n\t--------------------Iteración N°{i}--------------------')
-        print(f'Fórmula Iterativa {g}')
-        print(f'xi = {num_it}')
-        result = float(g.subs('x', num_it))
+
+        print(f'f(x) = {funcion}')
+    
+        print(f'\nFórmula Iterativa: \t{g}')
+
+        print(f'\nxi = {xi}')
+
+        result = float(g.subs('x', xi))
         print(f'g(xi) = {result}')
-        error = abs(result - num_it)
-        print(f"Error: {error}")
-        num_it = result
+    
+        error = abs(result - xi)
+        print(f'\nError aproximado: {error}')
+
+        xi = result
